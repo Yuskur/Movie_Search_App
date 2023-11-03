@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.example.movie_search_app.MoviesViewModel" />
+    </data>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -112,8 +118,17 @@
                     android:textSize="12sp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Internet_Num"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/link"
                     />
+                <TextView
+                    android:id="@+id/link"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text=" IMDB page"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/rating_Internet_Num"
+                    app:layout_constraintLeft_toRightOf="@+id/rating_imdb"
+                    app:layout_constraintRight_toRightOf="parent"/>
                 <TextView
                     android:id="@+id/runtime"
                     android:layout_width="0dp"
@@ -134,9 +149,6 @@
                     app:layout_constraintRight_toRightOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
         </androidx.cardview.widget.CardView>
         

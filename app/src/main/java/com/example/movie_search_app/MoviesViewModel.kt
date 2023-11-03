@@ -6,24 +6,17 @@ import androidx.lifecycle.ViewModel
 
 class MoviesViewModel : ViewModel() {
 
-    private var _movieSearch = MutableLiveData("")
-    val movieSearch : LiveData<String>
-        get() = _movieSearch
+    var movieSearch = ""
 
     private var _searchBtn = MutableLiveData(false)
     val searchBtn : LiveData<Boolean>
-        get() = searchBtn
-
-
+        get() = _searchBtn
     fun search(){
-        if(_movieSearch.value != ""){
+        if(movieSearch != ""){
             _searchBtn.value = true
         }
     }
     fun setBack(){
         _searchBtn.value = false
-    }
-    fun getSearchedMovie(): String{
-        return _movieSearch.value!!
     }
 }

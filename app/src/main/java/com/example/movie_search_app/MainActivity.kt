@@ -16,7 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL =  "http://www.omdbapi.com/"
+private const val BASE_URL = "https://www.omdbapi.com/"
 private const val API_KEY = "c9151775"
 class MainActivity : AppCompatActivity() {
 
@@ -34,10 +34,9 @@ class MainActivity : AppCompatActivity() {
 
         //first making the recycler view
         val adapter = MoviesAdapter(this)
-        val recyclerView = this.findViewById<RecyclerView>(R.id.recyclerView)
-        //-----------------------------Finish with databinding------------------------------
-        recyclerView.adapter = adapter
+        val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
         /*
         - making a network request to the yelp api using retrofit
@@ -47,21 +46,25 @@ class MainActivity : AppCompatActivity() {
             Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
                 .build()
         val service = retrofit.create(OMDbService::class.java)
+
         viewModel.searchBtn.observe(this, Observer {
             if(it){
-                service.searchMovies("Bearer $API_KEY", viewModel.getSearchedMovie()).enqueue(object :
+                Log.d("searchBtn", "${viewModel.movieSearch}")
+                service.searchMovies(API_KEY, viewModel.movieSearch).enqueue(object :
                     Callback<OMDbMovies> {
                     override fun onResponse(
                         call: Call<OMDbMovies>,
                         response: Response<OMDbMovies>
                     ) {
-                        Log.d("MainActivity", "onResponse: $response")
+                        Log.d("MainActivity", "onResponse: ${response.code()}")
                         val body = response.body()
                         //if its null then just return
                         if (body == null) {
                             Log.w("MainActivity", "Did not receive valid response body from Yelp API... exiting")
                             return
                         }
+
+                        Log.d("searchBtn", "${body.search[0]}")
                         adapter.submitList(body.search)
                     }
 
@@ -69,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                         Log.i("MainActivity", "onFailure $t")
                     }
                 })
+                viewModel.setBack()
             }
         })
     }
