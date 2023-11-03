@@ -1,15 +1,18 @@
 package com.example.movie_search_app
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.movie_search_app.databinding.ActivityMainBinding
 import com.example.movie_search_app.model.OMDbMovies
+import com.google.android.material.appbar.MaterialToolbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,17 +29,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //setting up the bottom toolbar
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
 
         binding.lifecycleOwner = this
         binding.searchPage = viewModel
 
+        fun linkClicked() : Unit{
+            viewModel.linkClicked()
+        }
+
         //first making the recycler view
-        val adapter = MoviesAdapter(this)
+        val adapter = MoviesAdapter(this) { linkClicked() }
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        viewModel.clickedLink.observe(this, Observer{
+            if(it){
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.imdb.com"))
+                startActivity(intent)
+                viewModel.setBack()
+            }
+        })
 
         /*
         - making a network request to the yelp api using retrofit
@@ -64,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                             return
                         }
 
-                        Log.d("searchBtn", "${body.search[0]}")
+//                        Log.d("searchBtn", "${body.search[0]}")
                         adapter.submitList(body.search)
                     }
 
@@ -75,5 +94,21 @@ class MainActivity : AppCompatActivity() {
                 viewModel.setBack()
             }
         })
+    }
+
+    /*When the email button is clicked on the bottom toolbar
+    it will make out an email for feedback the developer
+     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val emailBtn = menu.findItem(R.id.email)
+        Log.d("MainActivity", "handling some bidness")
+        emailBtn.setOnMenuItemClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse("test.dummy2090@gmail.com")
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
+            startActivity(intent)
+            true
+        }
+        return true
     }
 }

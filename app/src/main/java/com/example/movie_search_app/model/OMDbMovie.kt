@@ -8,6 +8,6 @@ data class OMDbMovie(
     @SerializedName("Year") val yearOfRelease : String,
     @SerializedName("Ratings") val ratings : List<Rating>,
     @SerializedName("Runtime") val runtime: String,
-    @SerializedName("Genre") val genre: String,
-    @SerializedName("imdbRating") val imdbRating: String
+    @SerializedName("Type") val genre: String,
+    @SerializedName("ImdbRating") val imdbRating: String
 )

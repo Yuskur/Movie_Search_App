@@ -15,7 +15,9 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -33,6 +35,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Title: "
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
@@ -42,6 +46,8 @@
                     android:layout_height="wrap_content"
                     android:text="Genre: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/title"
                     app:layout_constraintRight_toLeftOf="@id/Year"/>
@@ -51,6 +57,8 @@
                     android:layout_height="wrap_content"
                     android:text="Year: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/genre"
                     app:layout_constraintTop_toBottomOf="@+id/title"
                     app:layout_constraintRight_toRightOf="parent"/>
@@ -60,6 +68,8 @@
                     android:layout_height="wrap_content"
                     android:text="IMD Rating: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/genre"
                     app:layout_constraintRight_toLeftOf="@id/rating_Rotten_Tom"/>
@@ -69,6 +79,8 @@
                     android:layout_height="wrap_content"
                     android:text="Rotten Tom: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/rating_Internet"
                     app:layout_constraintTop_toBottomOf="@+id/Year"
                     app:layout_constraintRight_toLeftOf="@id/rating_Metacritic"/>
@@ -76,8 +88,10 @@
                     android:id="@+id/rating_Metacritic"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Metacritic Rating: "
+                    android:text="Metacritic Rate: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/rating_Rotten_Tom"
                     app:layout_constraintTop_toBottomOf="@+id/Year"
                     app:layout_constraintRight_toRightOf="parent"
@@ -88,6 +102,8 @@
                     android:layout_height="wrap_content"
                     android:text="----"
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Internet"
                     app:layout_constraintRight_toLeftOf="@id/rating_Rotten_Tom_Num"/>
@@ -97,6 +113,8 @@
                     android:layout_height="wrap_content"
                     android:text="----"
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/rating_Internet_Num"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Rotten_Tom"
                     app:layout_constraintRight_toLeftOf="@id/rating_Metacritic_Num"/>
@@ -106,6 +124,8 @@
                     android:layout_height="wrap_content"
                     android:text="----"
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/rating_Rotten_Tom_Num"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Metacritic"
                     app:layout_constraintRight_toRightOf="parent"
@@ -116,6 +136,8 @@
                     android:layout_height="wrap_content"
                     android:text="IMDB Rating: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Internet_Num"
                     app:layout_constraintRight_toLeftOf="@+id/link"
@@ -126,6 +148,9 @@
                     android:layout_height="wrap_content"
                     android:text=" IMDB page"
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#1C2C83"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Internet_Num"
                     app:layout_constraintLeft_toRightOf="@+id/rating_imdb"
                     app:layout_constraintRight_toRightOf="parent"/>
@@ -135,18 +160,13 @@
                     android:layout_height="wrap_content"
                     android:text="Movie Runtime: "
                     android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/rating_imdb"
                     app:layout_constraintRight_toRightOf="parent"
                     />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="IMDB page"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/runtime"
-                    app:layout_constraintLeft_toRightOf="@+id/posterImage"
-                    app:layout_constraintRight_toRightOf="parent"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
