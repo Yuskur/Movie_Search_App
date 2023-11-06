@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-    
+
     <data>
         <variable
             name="searchPage"
             type="com.example.movie_search_app.MoviesViewModel" />
     </data>
 
-    <LinearLayout
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -20,46 +21,53 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/topbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="Movie Search App"
                 app:menu="@menu/bottom_bar"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary" />
-
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <EditText
-                android:id="@+id/search_bar"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:hint="Enter Movie Name . . . ."
-                android:text="@={searchPage.movieSearch}"
-                android:padding="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/square_button"
-                android:text="Search"
-                android:layout_margin="10dp"
-                android:onClick="@{() -> searchPage.search()}"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <EditText
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:hint="Enter Movie Name . . . ."
+                    android:text="@={searchPage.movieSearch}"
+                    android:padding="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/square_button"
+                    android:text="Search"
+                    android:layout_margin="10dp"
+                    android:onClick="@{() -> searchPage.search()}"/>
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7" />
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7" />
-    </LinearLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </layout>

@@ -29,18 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //setting up the bottom toolbar
-        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        if(supportActionBar == toolbar){
-            Log.d("MainActivity", "handling the bidness")
-        } else{
-            Log.d("ActionBar", "${supportActionBar}")
-        }
-
         val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
+
+        //setting up the bottom toolbar
+        val toolbar = findViewById<MaterialToolbar>(R.id.topbar)
+        setSupportActionBar(toolbar)
 
         binding.lifecycleOwner = this
         binding.searchPage = viewModel
@@ -108,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 it will make out an email for feedback the developer
  */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        Log.d("MainActivity", "handling some bidness")
+        Log.d("MainActivity", "onCreateOptionsMenu")
         menuInflater.inflate(R.menu.bottom_bar, menu) // Inflate your menu resource here
         return true
     }
@@ -116,9 +110,11 @@ it will make out an email for feedback the developer
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.emailBtn -> {
-                Log.d("MainActivity", "handling some bidness")
-                val intent = Intent(Intent.ACTION_SENDTO)
-                intent.data = Uri.parse("mailto:test.dummy2090@gmail.com")
+                Log.d("MainActivity", "onOptionsItemSelected")
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("test.dummy2090@gmail.com"))
+//                intent.data = Uri.parse("mailto:test.dummy2090@gmail.com")
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
                 startActivity(intent)
                 return true
