@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,6 @@ private const val API_KEY = "c9151775"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MoviesViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,25 +33,33 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        if(supportActionBar == toolbar){
+            Log.d("MainActivity", "handling the bidness")
+        } else{
+            Log.d("ActionBar", "${supportActionBar}")
+        }
+
         val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
 
         binding.lifecycleOwner = this
         binding.searchPage = viewModel
 
-        fun linkClicked() : Unit{
-            viewModel.linkClicked()
+        fun linkClicked(id: String) : Unit{
+            viewModel.linkClicked(id)
         }
 
         //first making the recycler view
-        val adapter = MoviesAdapter(this) { linkClicked() }
+        val adapter = MoviesAdapter(this,::linkClicked)
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         viewModel.clickedLink.observe(this, Observer{
             if(it){
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.imdb.com"))
+                Log.d("link", "ID: ${viewModel.id}")
+                val intent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.imdb.com/title/${viewModel.id}/"))
                 startActivity(intent)
                 viewModel.setBack()
             }
@@ -69,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.searchBtn.observe(this, Observer {
             if(it){
                 Log.d("searchBtn", "${viewModel.movieSearch}")
-                service.searchMovies(API_KEY, viewModel.movieSearch).enqueue(object :
+                service.searchMovies(API_KEY, viewModel.movieSearch, "movie").enqueue(object :
                     Callback<OMDbMovies> {
                     override fun onResponse(
                         call: Call<OMDbMovies>,
@@ -97,18 +105,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     /*When the email button is clicked on the bottom toolbar
-    it will make out an email for feedback the developer
-     */
+it will make out an email for feedback the developer
+ */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val emailBtn = menu.findItem(R.id.email)
         Log.d("MainActivity", "handling some bidness")
-        emailBtn.setOnMenuItemClickListener {
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("test.dummy2090@gmail.com")
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
-            startActivity(intent)
-            true
-        }
+        menuInflater.inflate(R.menu.bottom_bar, menu) // Inflate your menu resource here
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.emailBtn -> {
+                Log.d("MainActivity", "handling some bidness")
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:test.dummy2090@gmail.com")
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
+                startActivity(intent)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 }

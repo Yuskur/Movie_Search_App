@@ -12,6 +12,7 @@ public interface OMDbService{
     @GET("/")
     fun searchMovies(
         @Query("apiKey") apiKey: String,
-        @Query("s") movieName: String
+        @Query("s") movieName: String,
+        @Query("type") movieType: String
     ) : Call<OMDbMovies>
 }

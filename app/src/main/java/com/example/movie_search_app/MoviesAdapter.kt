@@ -14,7 +14,7 @@ import com.example.movie_search_app.databinding.MovieBinding
 import com.example.movie_search_app.model.OMDbMovie
 import com.example.movie_search_app.model.OMDbMovies
 
-class MoviesAdapter(val context: Context, val linkClickedListener: () -> Unit) :
+class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) -> Unit) :
     ListAdapter<OMDbMovie, MoviesAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     override fun onCreateViewHolder(
@@ -37,13 +37,13 @@ class MoviesAdapter(val context: Context, val linkClickedListener: () -> Unit) :
                 return MovieViewHolder(binding)
             }
         }
-        fun bind(movie : OMDbMovie, context: Context, linkClickedListener: () -> Unit){
+        fun bind(movie : OMDbMovie, context: Context, linkClickedListener: (id: String) -> Unit){
             binding.title.text = "Title: ${movie.title}"
             binding.Year.text = "Year: ${movie.yearOfRelease}"
 //            binding.ratingInternet.text = movie.ratings[0].rating
 //            binding.ratingRottenTomNum.text = movie.ratings[1].rating
 //            binding.ratingMetacriticNum.text = movie.ratings[2].rating
-//            binding.runtime.text = movie.runtime
+            binding.runtime.text = "Movie Runtime: ${movie.runtime}"
             binding.genre.text = "Genre: ${movie.genre}"
             //binding the image
             Glide.with(context).load(movie.image)
@@ -54,7 +54,8 @@ class MoviesAdapter(val context: Context, val linkClickedListener: () -> Unit) :
                 )
                 .into(binding.posterImage)
             binding.ratingImdb.text = "IMDB Rating: ${movie.imdbRating}"
-            binding.link.setOnClickListener{ linkClickedListener() }
+            binding.link.setOnClickListener{ linkClickedListener(movie.imdbID) }
+            binding.link.text = "IMDB page: ${movie.title}"
         }
     }
 

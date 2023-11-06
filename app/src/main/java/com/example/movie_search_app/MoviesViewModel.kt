@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 class MoviesViewModel : ViewModel() {
 
     var movieSearch = ""
+    var id = ""
 
     private var _searchBtn = MutableLiveData(false)
     val searchBtn : LiveData<Boolean>
@@ -19,7 +20,8 @@ class MoviesViewModel : ViewModel() {
             _searchBtn.value = true
         }
     }
-    fun linkClicked(){
+    fun linkClicked(id: String){
+        this.id = id
         _clickedLink.value = true
     }
     fun setBack(){
