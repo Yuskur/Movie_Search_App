@@ -27,6 +27,7 @@
                     android:id="@+id/posterImage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_marginBottom="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -153,7 +154,8 @@
                     android:textColor="#1C2C83"
                     app:layout_constraintTop_toBottomOf="@+id/rating_Internet_Num"
                     app:layout_constraintLeft_toRightOf="@+id/rating_imdb"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/share"/>
                 <TextView
                     android:id="@+id/runtime"
                     android:layout_width="0dp"
@@ -164,9 +166,25 @@
                     android:layout_marginLeft="5dp"
                     app:layout_constraintLeft_toRightOf="@+id/posterImage"
                     app:layout_constraintTop_toBottomOf="@+id/rating_imdb"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/share"
                     />
-
+                <TextView
+                    android:id="@+id/share"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text="Share"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/square_button"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    app:layout_constraintLeft_toRightOf="@+id/runtime"
+                    app:layout_constraintTop_toBottomOf="@+id/link"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

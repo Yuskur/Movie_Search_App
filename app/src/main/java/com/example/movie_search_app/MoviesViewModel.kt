@@ -15,6 +15,9 @@ class MoviesViewModel : ViewModel() {
     private var _clickedLink = MutableLiveData(false)
     val clickedLink : LiveData<Boolean>
         get() = _clickedLink
+    private var _shareClicked = MutableLiveData(false)
+    val shareClicked : LiveData<Boolean>
+        get() = _shareClicked
     fun search(){
         if(movieSearch != ""){
             _searchBtn.value = true
@@ -24,8 +27,14 @@ class MoviesViewModel : ViewModel() {
         this.id = id
         _clickedLink.value = true
     }
+    fun shareClicked(id: String){
+        this.id = id
+        _shareClicked.value = true
+    }
     fun setBack(){
         _searchBtn.value = false
         _clickedLink.value = false
+        _shareClicked.value = false
     }
+
 }

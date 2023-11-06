@@ -43,8 +43,12 @@ class MainActivity : AppCompatActivity() {
             viewModel.linkClicked(id)
         }
 
+        fun shareClicked(id: String): Unit{
+            viewModel.shareClicked(id)
+        }
+
         //first making the recycler view
-        val adapter = MoviesAdapter(this,::linkClicked)
+        val adapter = MoviesAdapter(this,::linkClicked,::shareClicked)
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -55,6 +59,17 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://www.imdb.com/title/${viewModel.id}/"))
                 startActivity(intent)
+                viewModel.setBack()
+            }
+        })
+
+        viewModel.shareClicked.observe(this, Observer {
+            if(it){
+                Log.d("share", "ID: ${viewModel.id}")
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_TEXT, "https://www.imdb.com/title/${viewModel.id}/")
+                startActivity(Intent.createChooser(intent, "Share Link: "))
                 viewModel.setBack()
             }
         })

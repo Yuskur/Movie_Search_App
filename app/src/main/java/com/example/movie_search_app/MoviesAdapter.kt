@@ -14,7 +14,8 @@ import com.example.movie_search_app.databinding.MovieBinding
 import com.example.movie_search_app.model.OMDbMovie
 import com.example.movie_search_app.model.OMDbMovies
 
-class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) -> Unit) :
+class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) -> Unit,
+    val shareClickedListener: (id: String) -> Unit) :
     ListAdapter<OMDbMovie, MoviesAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     override fun onCreateViewHolder(
@@ -24,7 +25,7 @@ class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) 
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie, context, linkClickedListener)
+        holder.bind(movie, context, linkClickedListener, shareClickedListener)
     }
 
     class MovieViewHolder(val binding: MovieBinding) :
@@ -37,7 +38,8 @@ class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) 
                 return MovieViewHolder(binding)
             }
         }
-        fun bind(movie : OMDbMovie, context: Context, linkClickedListener: (id: String) -> Unit){
+        fun bind(movie : OMDbMovie, context: Context, linkClickedListener: (id: String) -> Unit,
+                 shareClickedListener: (id: String) -> Unit){
             binding.title.text = "Title: ${movie.title}"
             binding.Year.text = "Year: ${movie.yearOfRelease}"
 //            binding.ratingInternet.text = movie.ratings[0].rating
@@ -56,6 +58,7 @@ class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) 
             binding.ratingImdb.text = "IMDB Rating: ${movie.imdbRating}"
             binding.link.setOnClickListener{ linkClickedListener(movie.imdbID) }
             binding.link.text = "IMDB page: ${movie.title}"
+            binding.share.setOnClickListener{ shareClickedListener(movie.imdbID) }
         }
     }
 
