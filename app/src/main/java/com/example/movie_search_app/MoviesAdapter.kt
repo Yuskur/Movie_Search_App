@@ -14,6 +14,7 @@ import com.example.movie_search_app.databinding.MovieBinding
 import com.example.movie_search_app.model.OMDbMovie
 import com.example.movie_search_app.model.OMDbMovies
 
+//Two buttons for the share and the link on the movie poster
 class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) -> Unit,
     val shareClickedListener: (id: String) -> Unit) :
     ListAdapter<OMDbMovie, MoviesAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
@@ -38,16 +39,15 @@ class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) 
                 return MovieViewHolder(binding)
             }
         }
+
+        //Binding things on the move poster with data from the OMDb Api
         fun bind(movie : OMDbMovie, context: Context, linkClickedListener: (id: String) -> Unit,
                  shareClickedListener: (id: String) -> Unit){
             binding.title.text = "Title: ${movie.title}"
             binding.Year.text = "Year: ${movie.yearOfRelease}"
-//            binding.ratingInternet.text = movie.ratings[0].rating
-//            binding.ratingRottenTomNum.text = movie.ratings[1].rating
-//            binding.ratingMetacriticNum.text = movie.ratings[2].rating
-            binding.runtime.text = "Movie Runtime: ${movie.runtime}"
             binding.genre.text = "Genre: ${movie.genre}"
-            //binding the image
+
+            //binding the image using Glide
             Glide.with(context).load(movie.image)
                 .apply(
                     RequestOptions().transform(
@@ -55,7 +55,6 @@ class MoviesAdapter(val context: Context, val linkClickedListener: (id: String) 
                     )
                 )
                 .into(binding.posterImage)
-            binding.ratingImdb.text = "IMDB Rating: ${movie.imdbRating}"
             binding.link.setOnClickListener{ linkClickedListener(movie.imdbID) }
             binding.link.text = "IMDB page: ${movie.title}"
             binding.share.setOnClickListener{ shareClickedListener(movie.imdbID) }

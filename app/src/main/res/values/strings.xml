@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Movie_Search_App</string>
+    <string name="title">Title:</string>
+    <string name="genre">Genre:</string>
+    <string name="year">Year:</string>
+    <string name="imd_rating">IMD Rating:</string>
+    <string name="rotten_tom">Rotten Tom:</string>
+    <string name="metacritic_rate">Metacritic Rate:</string>
+    <string name="imdb_rating">IMDB Rating:</string>
+    <string name="imdb_page">IMDB page:</string>
+    <string name="movie_runtime">Movie Runtime:</string>
+    <string name="share">Share</string>
 </resources>

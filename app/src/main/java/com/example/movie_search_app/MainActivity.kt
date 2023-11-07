@@ -29,20 +29,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding : ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
 
         //setting up the bottom toolbar
         val toolbar = findViewById<MaterialToolbar>(R.id.topbar)
         setSupportActionBar(toolbar)
 
+        //Binding the lifecycle owner and binding the layout to the viewModel
         binding.lifecycleOwner = this
         binding.searchPage = viewModel
 
+        //Function to pass to the adapter for when the link is clicked
         fun linkClicked(id: String) : Unit{
             viewModel.linkClicked(id)
         }
 
+        //Function to pass to the adapter for when the share button is clicked
         fun shareClicked(id: String): Unit{
             viewModel.shareClicked(id)
         }
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
+        //When the link on the move poster is clicked take them to the IMDb page for the movie
         viewModel.clickedLink.observe(this, Observer{
             if(it){
                 Log.d("link", "ID: ${viewModel.id}")
@@ -63,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        //When the share button is clicked using an implicit intent allow to share link on platforms
         viewModel.shareClicked.observe(this, Observer {
             if(it){
                 Log.d("share", "ID: ${viewModel.id}")
@@ -100,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                             return
                         }
 
-//                        Log.d("searchBtn", "${body.search[0]}")
+                        Log.d("searchBtn", "${body.search[0]}")
                         adapter.submitList(body.search)
                     }
 
