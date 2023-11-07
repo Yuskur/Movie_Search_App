@@ -12,6 +12,8 @@ The following extensions are implemented
 * AppCompatActiviity()
 * ViewModel()
 * Fragment()
+* DialogFragment()
+* ListAdapter<>
 
 ## Video walkthrough 
 ![MovieSearchApp](https://github.com/Yuskur/Movie_Search_App/assets/123311946/d019d691-6e33-4b4c-b189-20fb5508fccf)
@@ -19,7 +21,10 @@ The following extensions are implemented
 
 ## Notes 
 
-* One of the things I struggled with is 
+* One thing that became a challenge was getting the binding right [My app would crash because some values would not be returned in the api request]
+* Getting the share button and link click listener binded on the adaper became a challenge 
+* Problem with binding the activity layout with the activity class. [Had to do it differently than done in fragments]
+* Parameters for the api request along with the GET call [Didn't know how to format it for OMDb Api and some parameters like calling by title would not work]
 
 
 ## License 
