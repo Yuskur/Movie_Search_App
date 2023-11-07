@@ -14,7 +14,7 @@ The following extensions are implemented
 * Fragment()
 
 ## Video walkthrough 
-
+![MovieSearchApp](https://github.com/Yuskur/Movie_Search_App/assets/123311946/d019d691-6e33-4b4c-b189-20fb5508fccf)
 
 
 ## Notes 
